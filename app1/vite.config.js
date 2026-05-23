@@ -10,7 +10,9 @@ export default defineConfig({
       name: 'app1',
       // Consume remote components from app2
       remotes: {
-        app2: 'http://localhost:5174/assets/remoteEntry.js',
+        app2: process.env.NODE_ENV === 'production'
+          ? '/app2/assets/remoteEntry.js'  // Production: relative path
+          : 'http://localhost:5174/assets/remoteEntry.js',  // Development: localhost
       },
       shared: ['react', 'react-dom']
     })

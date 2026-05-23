@@ -1,0 +1,24 @@
+[build]
+  # Build command - use custom script
+  command = "chmod +x build-for-netlify.sh && ./build-for-netlify.sh"
+  
+  # Publish directory - serve app1 (host) which includes app2
+  publish = "app1/dist"
+
+[[redirects]]
+  # Redirect all requests to index.html for SPA routing
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Environment variables
+[build.environment]
+  NODE_VERSION = "20"
+
+# Headers for CORS (needed for Module Federation)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "*"
